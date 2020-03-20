@@ -11,9 +11,26 @@ public class SortedListToBst {
   // The length of the list is given.
   public static DoublyListNode<Integer>
   buildBSTFromSortedList(DoublyListNode<Integer> l, int length) {
-    // TODO - you fill in here.
-    return null;
+    head = l;
+    return buildBSTFromSortedListHelper(0, length);
   }
+
+  //start inc; end exc
+  static DoublyListNode<Integer> buildBSTFromSortedListHelper(int start, int end) {
+    if (start >= end) {
+      return null;
+    }
+    int mid = start + (end - start) / 2;
+    DoublyListNode<Integer> left = buildBSTFromSortedListHelper(start, mid);
+    DoublyListNode<Integer> curr = head;
+    curr.prev = left;
+    head = head.next;
+    DoublyListNode<Integer> right = buildBSTFromSortedListHelper(mid + 1, end);
+    curr.next = right;
+    return curr;
+  }
+
+  static DoublyListNode<Integer> head;
   public static void compareVectorAndTree(DoublyListNode<Integer> tree,
                                           Iterator<Integer> it)
       throws TestFailure {

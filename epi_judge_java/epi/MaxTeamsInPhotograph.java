@@ -4,6 +4,8 @@ import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 public class MaxTeamsInPhotograph {
 
@@ -14,9 +16,44 @@ public class MaxTeamsInPhotograph {
   }
 
   public static int findLargestNumberTeams(List<GraphVertex> graph) {
-    // TODO - you fill in here.
-    return 0;
+    Deque<GraphVertex> q = buildTopologicalOrder(graph);
+    return findLongestSequence(q);
   }
+
+  private static int findLongestSequence(Deque<GraphVertex> q) {
+    int m = 0;
+    while(!q.isEmpty()){
+      GraphVertex v = q.pollFirst();
+      m = Math.max(m, v.maxDistance);
+      for (GraphVertex n : v.edges) {
+        n.maxDistance = Math.max(n.maxDistance, v.maxDistance + 1);
+      }
+    }
+    return m;
+  }
+
+  private static Deque<GraphVertex> buildTopologicalOrder(List<GraphVertex> graph) {
+    Deque<GraphVertex> q = new LinkedList<>();
+    for(GraphVertex v: graph) {
+      if (v.maxDistance == 0) {
+        DFS(v, q);
+      }
+    }
+    return q;
+  }
+
+  private static void DFS(GraphVertex v, Deque<GraphVertex> q) {
+    v.maxDistance = 1;
+    //q.addLast(v);
+    for(GraphVertex n: v.edges) {
+      if (n.maxDistance == 0) {
+        DFS(n, q);
+      }
+    }
+    q.addFirst(v);
+  }
+
+
   @EpiUserType(ctorParams = {int.class, int.class})
   public static class Edge {
     public int from;

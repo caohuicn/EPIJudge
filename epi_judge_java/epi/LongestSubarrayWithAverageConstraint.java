@@ -5,15 +5,16 @@ import epi.test_framework.GenericTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-public class LongestSubarrayWithSumConstraint {
-  @EpiTest(testDataFile = "longest_subarray_with_sum_constraint.tsv")
 
-  public static int findLongestSubarrayLessEqualK(List<Integer> A, int k) {
+public class LongestSubarrayWithAverageConstraint {
+  //@EpiTest(testDataFile = "longest_subarray_with_sum_constraint.tsv")
+
+  public static int findLongestSubarrayAvgLessEqualK(List<Integer> A, int k) {
     int n = A.size();
     List<Integer> sums = new ArrayList<>(n);
     int sum = 0;
     for (int i =0; i < n; i++) {
-      sum += A.get(i);
+      sum += A.get(i) - k;
       sums.add(sum);
     }
     if (sums.get(n - 1) <= k) return n;
@@ -26,7 +27,7 @@ public class LongestSubarrayWithSumConstraint {
     int a = 0, b = 0, maxLen = 0;
     while (a < n && b < n) {
       int minSumAB = a > 0 ? minPrefixSum.get(b) - sums.get(a - 1) : minPrefixSum.get(b);
-      if (minSumAB <= k) {
+      if (minSumAB <= 0) {
         int len = b - a + 1;
         if (len > maxLen) {
           maxLen = len;
@@ -40,13 +41,13 @@ public class LongestSubarrayWithSumConstraint {
   }
 
   public static void main(String[] args) {
-    System.exit(
-        GenericTest
-            .runFromAnnotations(args, "LongestSubarrayWithSumConstraint.java",
-                                new Object() {}.getClass().getEnclosingClass())
-            .ordinal());
-//    Integer[] arr = new Integer[]{12, -5, -4, 9, 8, -11, -5, 10, -9, 11, -4, 11, -2};
-//    List<Integer> list = new ArrayList<>(Arrays.asList(arr));
-//    System.out.println(findLongestSubarrayLessEqualK(list, 0));
+//    System.exit(
+//        GenericTest
+//            .runFromAnnotations(args, "LongestSubarrayWithSumConstraint.java",
+//                                new Object() {}.getClass().getEnclosingClass())
+//            .ordinal());
+    Integer[] arr = new Integer[]{12, -5, -4, 9, 8, -11, -5, 10, -9, 11, -4, 11, -2};
+    List<Integer> list = new ArrayList<>(Arrays.asList(arr));
+    System.out.println(findLongestSubarrayAvgLessEqualK(list, 1));
   }
 }

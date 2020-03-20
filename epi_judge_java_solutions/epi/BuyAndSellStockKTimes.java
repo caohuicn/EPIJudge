@@ -30,6 +30,23 @@ public class BuyAndSellStockKTimes {
       }
     }
     return maxProfits.get(maxProfits.size() - 1);
+    //WRONG!!!
+//    int n = prices.size();
+//    double[] p = new double[n];
+//    double max = prices.get(n - 1);
+//    p[n - 1] = 0;
+//    for (int i = n - 2; i >= 0; i--) {
+//      p[i] = Math.max(p[i + 1], max - prices.get(i));
+//      max = Math.max(max, prices.get(i));
+//    }
+//
+//    double[][] dp = new double[k + 1][n + 1];
+//    for (int i = 1; i <= k; ++i) {
+//      for (int j = 1; j <= n; j++) {
+//        dp[i][j] = dp[i - 1][j - 1] + p[j];
+//      }
+//    }
+//    return dp[k][n];
   }
 
   private static double unlimitedPairsProfits(List<Double> prices) {

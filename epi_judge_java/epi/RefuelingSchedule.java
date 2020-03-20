@@ -11,8 +11,17 @@ public class RefuelingSchedule {
   // city i to the next city.
   public static int findAmpleCity(List<Integer> gallons,
                                   List<Integer> distances) {
-    // TODO - you fill in here.
-    return 0;
+    final int numCities = gallons.size();
+    int tank = 0;
+    int city = 0;
+    for (int i = 0; i < numCities; ++i) {
+      tank += gallons.get(i) * MPG - distances.get(i);
+      if (tank < 0) {
+        city = (i + 1)%numCities;
+        tank = 0;
+      }
+    }
+    return city;
   }
   @EpiTest(testDataFile = "refueling_schedule.tsv")
   public static void findAmpleCityWrapper(TimedExecutor executor,
@@ -26,7 +35,7 @@ public class RefuelingSchedule {
       int city = (result + i) % numCities;
       tank += gallons.get(city) * MPG - distances.get(city);
       if (tank < 0) {
-        throw new TestFailure(String.format("Out of gas on city %d", city));
+        throw new TestFailure(String.format("Out of gas on city %d staring from %d", city, result));
       }
     }
   }
