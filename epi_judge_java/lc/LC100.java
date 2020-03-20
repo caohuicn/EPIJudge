@@ -101,10 +101,53 @@ public class LC100 {
         }
     }
 
+    public int[] searchRange(int[] nums, int target) {
+        int left = 0, right = nums.length;
+        int start = -1, end = -1;
+        while (left < right) {
+            int m = left + (right - left) / 2;
+            if (nums[m] == target) {
+                start = findStart(nums, target, left, m + 1);
+                end = findEnd(nums, target, m, right);
+                break;
+            } else if (nums[m] > target) {
+                right = m;
+            } else {
+                left = m + 1;
+            }
+        }
+        return new int[]{start, end};
+    }
+
+    int findStart(int[] nums, int t, int left, int right) {
+        while (left < right) {
+            int m = left + (right - left) / 2;
+            if (nums[m] == t) {
+                right = m;
+            } else {
+                left = m + 1;
+            }
+        }
+        return left;
+    }
+
+    int findEnd(int[] nums, int t, int left, int right) {
+        while (left < right) {
+            int m = left + (right - left) / 2;
+            if (nums[m] == t) {
+                left = m + 1;
+            } else {
+                right = m;
+            }
+        }
+        return left - 1;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(new LC100().decodeString("2[abc]3[cd]ef"));
 //        System.out.println(new LC100().findDuplicate(new int[]{1,3,4,2,2}));
 //        new LC100().combinationSum(new int[]{2,3,6,7}, 7);
-        new LC100().rotate(new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}});
+        //new LC100().rotate(new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}});
+        new LC100().searchRange(new int[]{5,7,7,8,8,10}, 8);
     }
 }
