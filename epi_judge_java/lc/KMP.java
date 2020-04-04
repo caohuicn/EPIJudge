@@ -75,18 +75,23 @@ public class KMP {
 
     public static void main(String[] args) {
         String ptn = "AAAA";
-        printArray(buildLPS(ptn.toCharArray()));
+        int[] lps = buildLPS(ptn.toCharArray());
+        printArray(lps);
+        System.out.println(ptn.substring(ptn.length() - lps[ptn.length() - 1]));
         ptn = "ABCDE";
-        printArray(buildLPS(ptn.toCharArray()));
+        lps = buildLPS(ptn.toCharArray());
+        printArray(lps);
+        System.out.println(ptn.substring(ptn.length() - lps[ptn.length() - 1]));
         ptn = "AABAACAABAA";
         printArray(buildLPS(ptn.toCharArray()));
         ptn = "AAACAAAAAC";
         printArray(buildLPS(ptn.toCharArray()));
         ptn = "AAABAAA";
         printArray(buildLPS(ptn.toCharArray()));
-        System.out.println(search("AAAAABAAABA", "AAAA"));
-        System.out.println(search("ABABDABACDABABCABAB", "ABABCABAB"));
-        System.out.println(search("AABAACAADAABAABA", "AABA"));
-        System.out.println(search("ABC ABCDAB ABCDABCDABDE", "ABCDABD"));
+
+//        System.out.println(search("AAAAABAAABA", "AAAA"));
+//        System.out.println(search("ABABDABACDABABCABAB", "ABABCABAB"));
+//        System.out.println(search("AABAACAADAABAABA", "AABA"));
+//        System.out.println(search("ABC ABCDAB ABCDABCDABDE", "ABCDABD"));
     }
 }

@@ -73,25 +73,26 @@ public class CaseDrops {
 //        System.out.println(cd.minDrops(100, 7));
 //        System.out.println(cd.minDrops(100, 8));
 
-//        System.out.println(cd.minCases(100, 1));
-//        System.out.println(cd.minCases(100, 6));
-//        System.out.println(cd.minCases(100, 7));
-//        System.out.println(cd.minCases(100, 8));
-//        System.out.println(cd.minCases(100, 9));
-//        System.out.println(cd.minCases(100, 14));
-//        System.out.println(cd.minCases(100, 51));
-//        System.out.println(cd.minCases(100, 100));
-        System.out.println(cd.maxFloors(0, 100));
-        System.out.println(cd.maxFloors(100, 0));
-        System.out.println(cd.maxFloors(3, 2));
-        System.out.println(cd.maxFloors(1, 100));
-        System.out.println(cd.maxFloors(2, 14));
-        System.out.println(cd.maxFloors(2, 9));
-        System.out.println(cd.maxFloors(3, 9));
-        System.out.println(cd.maxFloors(3, 8));
-        System.out.println(cd.maxFloors(4, 8));
-        System.out.println(cd.maxFloors(4, 7));
-        System.out.println(cd.maxFloors(5, 7));
-        System.out.println(cd.maxFloors(5, 6));
+        System.out.println(cd.minCases(100, 1));
+        System.out.println(cd.minCases(100, 6));
+        System.out.println(cd.minCases(100, 7));
+        System.out.println(cd.minCases(100, 8));
+        System.out.println(cd.minCases(100, 9));
+        System.out.println(cd.minCases(100, 14));
+        System.out.println(cd.minCases(100, 51));
+        System.out.println(cd.minCases(100, 100));
+
+//        System.out.println(cd.maxFloors(0, 100));
+//        System.out.println(cd.maxFloors(100, 0));
+//        System.out.println(cd.maxFloors(3, 2));
+//        System.out.println(cd.maxFloors(1, 100));
+//        System.out.println(cd.maxFloors(2, 14));
+//        System.out.println(cd.maxFloors(2, 9));
+//        System.out.println(cd.maxFloors(3, 9));
+//        System.out.println(cd.maxFloors(3, 8));
+//        System.out.println(cd.maxFloors(4, 8));
+//        System.out.println(cd.maxFloors(4, 7));
+//        System.out.println(cd.maxFloors(5, 7));
+//        System.out.println(cd.maxFloors(5, 6));
     }
 }
