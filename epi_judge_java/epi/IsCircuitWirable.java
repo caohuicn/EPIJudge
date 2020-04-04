@@ -5,7 +5,6 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
 
 import java.util.*;
-
 public class IsCircuitWirable {
 
   public static class GraphVertex {

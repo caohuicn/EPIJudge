@@ -1,18 +1,18 @@
 package epi;
+
+import epi.DrawingSkyline.Rect;
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
-import org.w3c.dom.css.Rect;
-
 import java.util.*;
 
 public class DrawingSkyline {
   @EpiUserType(ctorParams = {int.class, int.class, int.class})
 
-  public static class Rectangle {
+  public static class Rect {
     public int left, right, height;
 
-    public Rectangle(int left, int right, int height) {
+    public Rect(int left, int right, int height) {
       this.left = left;
       this.right = right;
       this.height = height;
@@ -27,15 +27,15 @@ public class DrawingSkyline {
         return false;
       }
 
-      Rectangle rectangle = (Rectangle)o;
+      Rect Rect = (Rect)o;
 
-      if (left != rectangle.left) {
+      if (left != Rect.left) {
         return false;
       }
-      if (right != rectangle.right) {
+      if (right != Rect.right) {
         return false;
       }
-      return height == rectangle.height;
+      return height == Rect.height;
     }
 
     @Override
@@ -45,9 +45,9 @@ public class DrawingSkyline {
   }
 
   static class Endpoint {
-    Rectangle r;
+    Rect r;
     boolean start;
-    public Endpoint(Rectangle r, boolean start) {
+    public Endpoint(Rect r, boolean start) {
       this.r = r;
       this.start = start;
     }
@@ -62,7 +62,7 @@ public class DrawingSkyline {
   }
 
   @EpiTest(testDataFile = "drawing_skyline.tsv")
-  public static List<Rectangle> drawingSkylines(List<Rectangle> buildings) {
+  public static List<Rect> drawingSkylines(List<Rect> buildings) {
     if (buildings.size() <= 1) return buildings;
     List<Endpoint> endpoints = getEndpoints(buildings);
     Collections.sort(endpoints, (e1, e2) -> {
@@ -72,9 +72,9 @@ public class DrawingSkyline {
       return 1;
     });
 
-    List<Rectangle> res = new ArrayList<>();
-    //The comparator cannot just compare height, which will ignore rectangles with the same height
-    TreeSet<Rectangle> heights = new TreeSet<>((r1, r2) -> {
+    List<Rect> res = new ArrayList<>();
+    //The comparator cannot just compare height, which will ignore Rects with the same height
+    TreeSet<Rect> heights = new TreeSet<>((r1, r2) -> {
       if (r1.height != r2.height) return r1.height - r2.height;
       if (r1.left != r2.left) return r1.left - r2.left;
       if (r1.right != r2.right) return r1.right - r2.right;
@@ -90,14 +90,14 @@ public class DrawingSkyline {
           if (h < e.y()) {
             //have to merge to pass the test :(
             if (res.size() >= 1) {
-              Rectangle last = res.get(res.size() - 1);
+              Rect last = res.get(res.size() - 1);
               if (last.height == h && last.right == left - 1) {
                 last.right = e.x() - 1;
                 left = e.x();
                 continue;
               }
             }
-            res.add(new Rectangle(left, e.x() - 1, h));
+            res.add(new Rect(left, e.x() - 1, h));
             left = e.x();
           }
         }
@@ -108,14 +108,14 @@ public class DrawingSkyline {
         if (e.y() == h && e.x() >= left) {
           if (heights.isEmpty() || heights.last().height < h) {
             if (res.size() >= 1) {
-              Rectangle last = res.get(res.size() - 1);
+              Rect last = res.get(res.size() - 1);
               if (last.height == h && last.right == left - 1) {
                 last.right = e.x();
                 left = e.x() + 1;
                 continue;
               }
             }
-            res.add(new Rectangle(left, e.x(), h));
+            res.add(new Rect(left, e.x(), h));
             left = e.x() + 1;
 //            h = heights.isEmpty() ? 0 : heights.last().height;
           }
@@ -126,26 +126,26 @@ public class DrawingSkyline {
     return res;
   }
 
-  private static List<Endpoint> getEndpoints(List<Rectangle> buildings) {
+  private static List<Endpoint> getEndpoints(List<Rect> buildings) {
     List<Endpoint> eps = new ArrayList<>();
-    for (Rectangle r : buildings) {
+    for (Rect r : buildings) {
       eps.add(new Endpoint(r, true));
       eps.add(new Endpoint(r, false));
     }
     return eps;
   }
 
-  public static List<Rectangle> drawingSkylines2(List<Rectangle> buildings) {
+  public static List<Rect> drawingSkylines2(List<Rect> buildings) {
     int min = Integer.MAX_VALUE;
     int max = Integer.MIN_VALUE;
-    for (Rectangle b : buildings) {
+    for (Rect b : buildings) {
       min = Math.min(min, b.left);
       max = Math.max(max, b.right);
     }
     if (buildings.isEmpty()) return new ArrayList<>();
     Collections.sort(buildings, Comparator.comparingInt(r -> r.left));
     List<Integer> heights = drawSkylines(buildings, 0, buildings.size());
-    return getRectangles(min, max, heights);
+    return getRects(min, max, heights);
   }
 
   /**
@@ -155,10 +155,10 @@ public class DrawingSkyline {
    * @param end exclusive
    * @return
    */
-  static List<Integer> drawSkylines(List<Rectangle> buildings, int start, int end) {
+  static List<Integer> drawSkylines(List<Rect> buildings, int start, int end) {
     List<Integer> res = new ArrayList<>();
     if (end - start <= 1) {
-      Rectangle b = buildings.get(start);
+      Rect b = buildings.get(start);
       for (int i = b.left; i <= b.right; i++) {
           res.add(b.height);
       }
@@ -194,34 +194,34 @@ public class DrawingSkyline {
     }
     return res;
   }
-  public static List<Rectangle> drawingSkylines1(List<Rectangle> buildings) {
+  public static List<Rect> drawingSkylines1(List<Rect> buildings) {
     int min = Integer.MAX_VALUE;
     int max = Integer.MIN_VALUE;
-    for (Rectangle b : buildings) {
+    for (Rect b : buildings) {
       min = Math.min(min, b.left);
       max = Math.max(max, b.right);
     }
     List<Integer> heights = new ArrayList<>(Collections.nCopies(max - min + 1, 0));
-    for (Rectangle b : buildings) {
+    for (Rect b : buildings) {
       for (int i = b.left; i <= b.right; i++) {
         heights.set(i - min, Math.max(b.height, heights.get(i - min)));
       }
     }
 
-    List<Rectangle> res = getRectangles(min, max, heights);
+    List<Rect> res = getRects(min, max, heights);
     return res;
   }
 
-  private static List<Rectangle> getRectangles(int min, int max, List<Integer> heights) {
-    List<Rectangle> res = new ArrayList<>();
+  private static List<Rect> getRects(int min, int max, List<Integer> heights) {
+    List<Rect> res = new ArrayList<>();
     int left = 0;
     for (int i = 1; i < heights.size(); i++) {
       if (heights.get(i) != heights.get(i - 1)) {
-        res.add(new Rectangle(left + min, i - 1 + min, heights.get(i - 1)));
+        res.add(new Rect(left + min, i - 1 + min, heights.get(i - 1)));
         left = i;
       }
     }
-    res.add(new Rectangle(left + min, max, heights.get(heights.size() - 1)));
+    res.add(new Rect(left + min, max, heights.get(heights.size() - 1)));
     return res;
   }
 

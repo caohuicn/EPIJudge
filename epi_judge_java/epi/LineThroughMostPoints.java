@@ -2,10 +2,8 @@ package epi;
 import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
-
 import java.math.BigInteger;
 import java.util.*;
-
 public class LineThroughMostPoints {
   @EpiUserType(ctorParams = {int.class, int.class})
 
