@@ -5,7 +5,6 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 
 import java.util.*;
-
 public class GraphClone {
 
   public static class GraphVertex {

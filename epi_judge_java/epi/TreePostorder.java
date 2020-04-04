@@ -1,7 +1,6 @@
 package epi;
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -48,7 +47,7 @@ public class TreePostorder {
     if (tree == null) return ans;
     Deque<NodeStatus> stack = new LinkedList<>();
     stack.addFirst(new NodeStatus(tree));
-    while(!stack.isEmpty()) {
+    while (!stack.isEmpty()) {
       NodeStatus ns = stack.peek();
       if (!ns.childExamined) {
         ns.childExamined = true;

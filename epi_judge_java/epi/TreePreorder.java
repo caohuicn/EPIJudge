@@ -6,8 +6,18 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 public class TreePreorder {
-  @EpiTest(testDataFile = "tree_preorder.tsv")
 
+  private static class NodeAndState {
+    public BinaryTreeNode<Integer> node;
+    public Boolean nodeProcessed;
+
+    public NodeAndState(BinaryTreeNode<Integer> node, Boolean nodeProcessed) {
+      this.node = node;
+      this.nodeProcessed = nodeProcessed;
+    }
+  }
+
+  @EpiTest(testDataFile = "tree_preorder.tsv")
   public static List<Integer> preorderTraversal(BinaryTreeNode<Integer> tree) {
     List<Integer> ans = new LinkedList<>();
     Deque<BinaryTreeNode<Integer>> deque = new LinkedList<>();
